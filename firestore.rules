@@ -1,0 +1,63 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && 
+        request.auth.token.email == 'mhaz1080@gmail.com' &&
+        request.auth.token.email_verified == true;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    // BLOCKCHAIN RULES
+    match /blocks/{blockId} {
+      allow read: if true; // Public ledger
+      
+      allow create: if isSignedIn() && 
+        incoming().index is number &&
+        incoming().timestamp is number &&
+        incoming().hash is string &&
+        incoming().previousHash is string &&
+        incoming().nonce is number &&
+        incoming().data is list &&
+        incoming().hash.size() == 64; // SHA-256 hash length
+      
+      allow update, delete: if false; // IMMUTABILITY: Once written, never changed or deleted.
+    }
+
+    // STUDENT & PROJECT RULES - Also restricted for audit trail
+    match /students/{studentId} {
+      allow read: if true;
+      allow create, update: if isAdmin();
+      allow delete: if false; // Audit trail preservation
+    }
+
+    match /projects/{projectId} {
+      allow read: if true;
+      allow create, update: if isAdmin();
+      allow delete: if false; // Audit trail preservation
+    }
+
+    // ADMIN RULES
+    match /admins/{adminId} {
+      allow read: if isSignedIn();
+      allow write: if false; // Managed via console or system admin
+    }
+  }
+}
