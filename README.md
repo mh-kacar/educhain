@@ -1,25 +1,53 @@
-# 🌐 Educhain: Eğitim Odaklı Blok Zinciri Simülasyonu
+Scholastic Chain ⛓️🎓
+Scholastic Chain, öğrencilerin akademik başarılarını, yarışma katılımlarını ve proje detaylarını blok zinciri (blockchain) mimarisiyle kaydeden, değiştirilemez ve şeffaf bir dijital arşiv sistemidir.
 
-Educhain, eğitim süreçlerini şeffaf, güvenli ve merkeziyetsiz bir yapıda takip etmek için geliştirilmiş bir blok zinciri projesidir.
+🚀 Proje Hakkında
+Bu sistem, merkeziyetsiz bir defter mantığıyla çalışır. Klasik veritabanı yapılarının aksine, her katılım kaydı bir "blok" içerisinde hashlenerek saklanır. Firebase Firestore üzerinde kurgulanan katı güvenlik kuralları sayesinde, bir kayıt oluşturulduktan sonra üzerinde güncelleme veya silme işlemi yapılamaz; bu da akademik geçmişin doğruluğunu ve değişmezliğini (immutability) garanti altına alır.
 
-## 🚀 Proje Hakkında
-Bu proje, öğrencilerin akademik başarılarını ve sertifikalarını blok zinciri üzerinde saklayarak veri bütünlüğünü korumayı hedefler. Teknofest ve TÜBİTAK vizyonuyla, yerli bir eğitim teknolojisi prototipi olarak geliştirilmiştir.
+Temel Özellikler
+Blok Zinciri Mimarisi: Her blok; indeks, zaman damgası, katılım verileri ve bir önceki bloğun hash bilgisini içerir.
 
-## ✨ Özellikler
-- **Blok Zinciri Altyapısı:** Veriler SHA-256 algoritması ile şifrelenir.
-- **Firebase Entegrasyonu:** Gerçek zamanlı veri depolama ve Google ile giriş yapma imkanı.
-- **Modern Arayüz:** Vite ve React kullanılarak hızlı ve kullanıcı dostu bir deneyim sunulmuştur.
+Değişmezlik (Immutability): firestore.rules ile update ve delete işlemleri teknik olarak engellenmiştir.
 
-## 🛠️ Kullanılan Teknolojiler
-- **Frontend:** React, TypeScript, Vite
-- **Backend/Database:** Firebase Firestore & Authentication
-- **Blok Zinciri:** TypeScript tabanlı Custom Blockchain Logic
-- **Tasarım:** Tailwind CSS / CSS3
+Rol Tabanlı Erişim: Admin yetkisi sadece doğrulanmış e-posta (mhaz1080@gmail.com) adresiyle sınırlandırılmıştır.
 
-## 📦 Kurulum ve Çalıştırma
+Veri Bütünlüğü: SHA-256 hash algoritması kullanılarak blokların kurcalanması imkansız hale getirilmiştir.
 
-Projeyi yerel bilgisayarınızdaçalıştırmak için:
+🛠️ Teknoloji Yığını
+Frontend: React 19, Vite, Tailwind CSS.
 
-1. Depoyu klonlayın:
-   ```bash
-   git clone [https://github.com/mh-kacar/educhain.git](https://github.com/mh-kacar/educhain.git)
+Backend/Database: Firebase Firestore.
+
+Kriptografi: js-sha256 (Hashleme işlemleri için).
+
+Yapay Zeka: Google Generative AI (@google/genai).
+
+📋 Veri Yapısı
+Sistem üç temel yapı üzerine kurulmuştur:
+
+Student: Öğrenci kimlik bilgileri ve sınıf seviyeleri.
+
+Project: Yarışma, seminer veya proje meta verileri.
+
+Block: Katılım kayıtlarını (ParticipationRecord) içeren ve birbirine hash ile bağlanan zincir halkaları.
+
+🔧 Kurulum
+Projeyi yerel ortamınızda çalıştırmak için:
+
+Bağımlılıkları Yükleyin:
+
+Bash
+npm install
+Çevresel Değişkenleri Ayarlayın:
+Proje ana dizininde bir .env dosyası oluşturun ve firebase-applet-config.json dosyasındaki bilgileri buraya aktarın.
+
+Geliştirme Sunucusunu Başlatın:
+
+Bash
+npm run dev
+🔒 Güvenlik Kuralları
+Proje, verilerin manipüle edilmesini engellemek için özelleştirilmiş güvenlik kurallarına sahiptir. security_spec.md dosyasında tanımlanan 12 temel güvenlik test senaryosu (Dirty Dozen Payloads) uygulanmıştır.
+
+Public Ledger: Blok zinciri verileri herkes tarafından okunabilir, ancak sadece yetkili adminler yeni kayıt ekleyebilir.
+
+Audit Trail: Öğrenci ve proje kayıtları silinemez, bu da bir denetim izi (audit trail) oluşturur.
