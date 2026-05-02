@@ -1,53 +1,226 @@
-Scholastic Chain ⛓️🎓
-Scholastic Chain, öğrencilerin akademik başarılarını, yarışma katılımlarını ve proje detaylarını blok zinciri (blockchain) mimarisiyle kaydeden, değiştirilemez ve şeffaf bir dijital arşiv sistemidir.
+@'
+# EDUCHAIN
 
-🚀 Proje Hakkında
-Bu sistem, merkeziyetsiz bir defter mantığıyla çalışır. Klasik veritabanı yapılarının aksine, her katılım kaydı bir "blok" içerisinde hashlenerek saklanır. Firebase Firestore üzerinde kurgulanan katı güvenlik kuralları sayesinde, bir kayıt oluşturulduktan sonra üzerinde güncelleme veya silme işlemi yapılamaz; bu da akademik geçmişin doğruluğunu ve değişmezliğini (immutability) garanti altına alır.
+## AKADEMIK BASARILAR ICIN BLOK ZINCIRI TABANLI KAYIT SISTEMI
 
-Temel Özellikler
-Blok Zinciri Mimarisi: Her blok; indeks, zaman damgası, katılım verileri ve bir önceki bloğun hash bilgisini içerir.
+EduChain, ogrencilerin okul projelerine, yarismalara ve akademik etkinliklere katilimlarini degistirilemez ve dogrulanabilir kayitlar halinde saklamak icin gelistirilmis bir web uygulamasidir.
 
-Değişmezlik (Immutability): firestore.rules ile update ve delete işlemleri teknik olarak engellenmiştir.
+Uygulama, Firebase Firestore uzerinde tutulan blok verilerini React arayuzu ile gercek zamanli olarak gosterir. Yonetici paneli uzerinden ogrenci, proje ve katilim kayitlari eklenebilir; her katilim kaydi SHA-256 ile ozetlenerek zincire yeni bir blok olarak islenir.
 
-Rol Tabanlı Erişim: Admin yetkisi sadece doğrulanmış e-posta (mhaz1080@gmail.com) adresiyle sınırlandırılmıştır.
+## PROJENIN AMACI
 
-Veri Bütünlüğü: SHA-256 hash algoritması kullanılarak blokların kurcalanması imkansız hale getirilmiştir.
+Bu projenin temel amaci, ogrencilerin akademik calismalarini guvenilir bir dijital defterde saklamaktir. Geleneksel kayit sistemlerinde veriler sonradan degistirilebilir veya silinebilirken, EduChain blok zinciri mantigi sayesinde her kaydi onceki blokla kriptografik olarak baglar.
 
-🛠️ Teknoloji Yığını
-Frontend: React 19, Vite, Tailwind CSS.
+Boylece:
 
-Backend/Database: Firebase Firestore.
+- Ogrenci basarilari dogrulanabilir hale gelir.
+- Proje ve yarisma katilimlari kalici olarak saklanir.
+- Kayit gecmisi seffaf bir defter uzerinden incelenebilir.
+- Yetkisiz kullanicilarin veri eklemesi veya degistirmesi engellenir.
 
-Kriptografi: js-sha256 (Hashleme işlemleri için).
+## ONE CIKAN OZELLIKLER
 
-Yapay Zeka: Google Generative AI (@google/genai).
+- Gercek zamanli blok zinciri defteri
+- Ogrenci kaydi olusturma
+- Proje ve yarisma kaydi olusturma
+- Ogrenci-proje katilim kaydi ekleme
+- SHA-256 tabanli blok ozeti hesaplama
+- Baslangic blogu olusturma
+- Onceki blok hash'i ile zincir butunlugu
+- Firebase Authentication ile kullanici girisi
+- Firestore guvenlik kurallari ile admin kontrolu
+- Modern, hareketli ve duyarli React arayuzu
 
-📋 Veri Yapısı
-Sistem üç temel yapı üzerine kurulmuştur:
+## TEKNOLOJI YIGINI
 
-Student: Öğrenci kimlik bilgileri ve sınıf seviyeleri.
+- React 19
+- TypeScript
+- Vite
+- Firebase Authentication
+- Firebase Firestore
+- React Firebase Hooks
+- Tailwind CSS
+- Motion
+- Lucide React
+- js-sha256
 
-Project: Yarışma, seminer veya proje meta verileri.
+## PROJE YAPISI
 
-Block: Katılım kayıtlarını (ParticipationRecord) içeren ve birbirine hash ile bağlanan zincir halkaları.
+```text
+educhain/
+├── src/
+│   ├── components/
+│   │   ├── AdminPanel.tsx
+│   │   ├── BlockchainLedger.tsx
+│   │   └── Header.tsx
+│   ├── lib/
+│   │   ├── blockchain.ts
+│   │   └── firebase.ts
+│   ├── App.tsx
+│   ├── index.css
+│   ├── main.tsx
+│   └── types.ts
+├── firestore.rules
+├── firebase-applet-config.json
+├── firebase-blueprint.json
+├── security_spec.md
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
 
-🔧 Kurulum
-Projeyi yerel ortamınızda çalıştırmak için:
+## KURULUM
 
-Bağımlılıkları Yükleyin:
+Projeyi calistirmak icin once bagimliliklari yukleyin:
 
-Bash
+```bash
 npm install
-Çevresel Değişkenleri Ayarlayın:
-Proje ana dizininde bir .env dosyası oluşturun ve firebase-applet-config.json dosyasındaki bilgileri buraya aktarın.
+```
 
-Geliştirme Sunucusunu Başlatın:
+Ardindan gelistirme sunucusunu baslatin:
 
-Bash
+```bash
 npm run dev
-🔒 Güvenlik Kuralları
-Proje, verilerin manipüle edilmesini engellemek için özelleştirilmiş güvenlik kurallarına sahiptir. security_spec.md dosyasında tanımlanan 12 temel güvenlik test senaryosu (Dirty Dozen Payloads) uygulanmıştır.
+```
 
-Public Ledger: Blok zinciri verileri herkes tarafından okunabilir, ancak sadece yetkili adminler yeni kayıt ekleyebilir.
+Uygulama varsayilan olarak su adreste calisir:
 
-Audit Trail: Öğrenci ve proje kayıtları silinemez, bu da bir denetim izi (audit trail) oluşturur.
+```text
+http://localhost:3000
+```
+
+## KULLANILABILIR KOMUTLAR
+
+```bash
+npm run dev
+```
+
+Gelistirme sunucusunu baslatir.
+
+```bash
+npm run build
+```
+
+Uretim icin uygulamayi derler.
+
+```bash
+npm run preview
+```
+
+Derlenmis uygulamayi onizleme modunda calistirir.
+
+```bash
+npm run lint
+```
+
+TypeScript tip kontrollerini calistirir.
+
+## FIREBASE YAPILANDIRMASI
+
+Proje Firebase ile calisir. Firebase ayarlari `firebase-applet-config.json` dosyasindan okunur.
+
+Kullanilan Firebase servisleri:
+
+- Authentication
+- Firestore Database
+
+Firestore koleksiyonlari:
+
+- `students`
+- `projects`
+- `blocks`
+
+Admin islemleri icin uygulamada belirli bir e-posta adresi kontrol edilmektedir. Yonetici yetkisi olmayan kullanicilar admin panelinden veri ekleyemez.
+
+## BLOK ZINCIRI MANTIGI
+
+Her blok su alanlardan olusur:
+
+- `index`
+- `timestamp`
+- `data`
+- `previousHash`
+- `hash`
+- `nonce`
+
+Yeni bir blok olusturulurken:
+
+1. Son blok Firestore uzerinden okunur.
+2. Yeni blogun `index` degeri bir artirilir.
+3. Yeni blogun `previousHash` alani son blogun `hash` degeriyle doldurulur.
+4. SHA-256 ile yeni blok ozeti hesaplanir.
+5. Basit Proof of Work mantigiyle uygun hash uretilir.
+6. Blok Firestore `blocks` koleksiyonuna eklenir.
+
+## GUVENLIK YAKLASIMI
+
+Projede guvenlik icin temel olarak su kurallar hedeflenmistir:
+
+- Bloklar herkese okunabilir.
+- Blok olusturma sadece admin kullanicilar tarafindan yapilabilir.
+- Var olan bloklar guncellenemez.
+- Var olan bloklar silinemez.
+- Ogrenci ve proje kayitlari sadece admin tarafindan yonetilebilir.
+- Yeni blok, onceki blokla tutarli olmak zorundadir.
+
+Detayli guvenlik notlari `security_spec.md` dosyasinda yer almaktadir.
+
+## EKRANLAR
+
+### CANLI DEFTER
+
+Canli Defter ekrani, Firestore uzerindeki bloklari gercek zamanli olarak listeler. Her blokta ogrenci bilgisi, proje bilgisi, blok hash'i, onceki hash ve dogrulama durumu goruntulenir.
+
+### YONETICI DUGUMU
+
+Yonetici paneli uzerinden:
+
+- Yeni ogrenci eklenebilir.
+- Yeni proje veya yarisma eklenebilir.
+- Ogrencinin bir projeye katilimi zincire yeni blok olarak islenebilir.
+
+## VERI MODELLERI
+
+### STUDENT
+
+```ts
+interface Student {
+  id: string;
+  name: string;
+  grade: string;
+  email?: string;
+}
+```
+
+### PROJECT
+
+```ts
+interface Project {
+  id: string;
+  name: string;
+  type: 'Project' | 'Competition' | 'Seminar';
+  description: string;
+  date: string;
+}
+```
+
+### BLOCK
+
+```ts
+interface Block {
+  index: number;
+  timestamp: number;
+  data: ParticipationRecord[];
+  previousHash: string;
+  hash: string;
+  nonce: number;
+}
+```
+
+## GELISTIRME NOTLARI
+
+- Uygulama Vite ile gelistirilmistir.
+- Arayuz React ve TypeScript kullanir.
+- Blok hash islemleri `src/lib/blockchain.ts` dosyasinda bulunur.
+- Firebase baglantisi `src/lib/firebase.ts` dosyasinda yapilandirilmistir.
+- Firestore guvenlik kurallari `firestore.rules` dosyasinda tanimlanmistir.
